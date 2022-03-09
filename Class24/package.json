@@ -1,0 +1,17 @@
+{
+  "name": "demo_project",
+  "version": "1.0.0",
+  "description": "this is my demo project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "project"
+  ],
+  "author": "sanjeet",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
