@@ -1,0 +1,26 @@
+{
+    "development" :{
+        "database" : "school",
+        "username" : "root",
+        "password": "mysql",
+        "dialectInformation" :{
+            "dialect" : "mysql",
+            "host" : "localhost"
+        },
+        "pool" :{
+            "max" : 3,
+            "min" : 0,
+            "acquire": 20000,
+            "idle" : 10000
+        }
+    },
+    "test" :{
+        "database" : "school1",
+        "username" : "root1",
+        "password": "mysql",
+        "dialectInformation" :{
+            "dialect" : "mysql",
+            "host" : "localhost"
+        } 
+    }
+}
