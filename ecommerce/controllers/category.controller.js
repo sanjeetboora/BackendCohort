@@ -4,8 +4,6 @@
  * that request will be called
  */
 
-const { response } = require('express');
-const { category } = require('../models');
 const db = require('../models');
 const Category = db.category;
 
@@ -39,10 +37,10 @@ exports.create = (req, res) => {
     //Promise.then(resolved).catch(err)
 
     Category.create(category).then(response =>{
-        console.log(`category name: [${response} got inserted in db]`);
+        console.log(`category: [${response} got inserted in db]`);
         res.status(201).send(response);
     }).catch(err =>{
-        console.log(`category name: [${err} got inserted in db]`);
+        console.log(`category: [${err} not inserted in db]`);
         res.status(500).send({
             message: "Some internal error occurred while storing the category data!"
         })
@@ -90,12 +88,13 @@ exports.delete = (req, res) =>{
     Category.destroy({
         where:{
             id:categoryId
-        }
+        },
+        returning: true
     }).then(response => {
-        res.status(200).send(response);
+        res.sendStatus(200).send(response);
 
     }).catch(err =>{
-        res.status(500).send({
+        res.sendStatus(500).send({
             message: "Some internal error occurred while deleting the category!"
         })
     });

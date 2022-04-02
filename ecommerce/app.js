@@ -13,11 +13,21 @@ function init(){
         {name: "Vegetables", 
         description: "This category contains vegetables"},
     ]
+
+    var productsData = [
+        {name: "Samsung", 
+        price: 1000},
+    ]
     
     db.category.bulkCreate(categoriesData).then(() =>{
         console.log("category table is initialized with category data");
     }).catch((err) =>{
         console.log("Error in initializing categories table", err);
+    })
+    db.product.bulkCreate(productsData).then(() =>{
+        console.log("category table is initialized with product data");
+    }).catch((err) =>{
+        console.log("Error in initializing products table", err);
     })
 }
 
@@ -27,6 +37,7 @@ db.sequelize.sync({force:true}).then(() =>{
 })
 
 require('./routes/category.routes')(app);
+require('./routes/product.routes')(app);
 app.listen(serverConfig.PORT, () => {
     console.log("my server is working");
 });
