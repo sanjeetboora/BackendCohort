@@ -12,20 +12,8 @@ const Category = db.category;
  */
 exports.create = (req, res) => {
     /**
-     * validate the request
-     */
-    console.log(req.body);
-    if(!req.body.name){
-        res.status(400).send({
-            message: "Name of the category can't be empty"
-        })
-        return;
-    }
-
-    /**
      * creating the category object to be stored in db
      */
-
     const category = {
         name: req.body.name,
         description: req.body.description
@@ -51,16 +39,6 @@ exports.create = (req, res) => {
  * Update an existing categoory
  */
  exports.update = (req, res) =>{
-    /**
-     * validate the request
-     */
-    if(!req.body.name){
-        res.status(400).send({
-            message: "Name of the category can't be empty"
-        })
-        return;
-    }
-
     /**
      * creating the category object to be updated in db
      */

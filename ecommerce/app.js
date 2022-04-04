@@ -31,7 +31,12 @@ function init(){
     })
 }
 
+//Set the One to Many relationship between Category and Product
+db.category.hasMany(db.product);
 db.sequelize.sync({force:true}).then(() =>{
+    //authenticate
+    //drop all tables
+    //recreate all tables
     console.log("models/tables are dropped and recreated");
     init();
 })

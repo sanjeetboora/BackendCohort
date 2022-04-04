@@ -3,7 +3,8 @@
  * all the crud request coming for product would be execulting some method of this file.
  */
 
- const db = require('../models');
+ const { category } = require('../models');
+const db = require('../models');
  console.log(db);
  const Product = db.product;
  
@@ -12,24 +13,14 @@
   */
  exports.create = (req, res) => {
      /**
-      * validate the request
-      */
-     console.log(req.body);
-     if(!req.body.name || !req.body.price){
-         res.status(400).send({
-             message: "Name or price of the product can't be empty"
-         })
-         return;
-     }
- 
-     /**
       * creating the product object to be stored in db
       */
  
      const product = {
          name: req.body.name,
          description: req.body.description,
-         price: req.body.price
+         price: req.body.price,
+         categoryId: req.body.categoryId
      }
  
      /**
@@ -52,16 +43,6 @@
   * Update an existing product
   */
   exports.update = (req, res) =>{
-     /**
-      * validate the request
-      */
-     if(!req.body.name || !req.body.price){
-         res.status(400).send({
-             message: "Name or price of the product can't be empty"
-         })
-         return;
-     }
- 
      /**
       * creating the product object to be updated in db
       */

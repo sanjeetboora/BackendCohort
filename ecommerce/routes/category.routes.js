@@ -1,12 +1,12 @@
 
 const categoryController = require('../controllers/category.controller');
-
+const {requestValidator} = require('../middlewares');
 module.exports = function(app){
     //Route for POST request to create the category
-    app.post("/ecomm/api/v1/categories", categoryController.create)
+    app.post("/ecomm/api/v1/categories", [requestValidator.validateCategoryRequest],categoryController.create)
 
     //Route for PUT request to update the category
-    app.put("/ecomm/api/v1/categories/:id", categoryController.update)
+    app.put("/ecomm/api/v1/categories/:id", [requestValidator.validateCategoryRequest],categoryController.update)
 
     //Route for DELETE request to delete the category
     app.delete("/ecomm/api/v1/categories/:id", categoryController.delete)
