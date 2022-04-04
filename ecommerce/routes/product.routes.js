@@ -16,4 +16,8 @@ module.exports = function(app){
 
     //Route for GET request to get the all the products
     app.get("/ecomm/api/v1/products", productController.findAll)
+
+    //Route for GET request to get the all the products of the given category id
+    app.get("/ecomm/api/v1/categories/:categoryId/products", [requestValidator.validateCategoryInRequestParams], productController.getProductsUnderCategory)
+
 }

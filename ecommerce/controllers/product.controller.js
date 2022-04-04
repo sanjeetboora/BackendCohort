@@ -120,3 +120,18 @@ const db = require('../models');
          })
      })
  }
+
+ exports.getProductsUnderCategory = (req, res) => {
+     const categoryID = req.params.categoryId;
+     Product.findAll({
+         where: {
+             categoryId: categoryID
+         }
+     }).then(response =>{
+         res.status(200).send(response);
+     }).catch(err =>{
+        res.status(500).send({
+            message: "Some internal error occurred while fetching all the products based upon the category id"
+        })
+     })
+ }

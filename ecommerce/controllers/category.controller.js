@@ -66,8 +66,7 @@ exports.delete = (req, res) =>{
     Category.destroy({
         where:{
             id:categoryId
-        },
-        returning: true
+        }
     }).then(response => {
         res.sendStatus(200).send(response);
 

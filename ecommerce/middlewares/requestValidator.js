@@ -33,17 +33,51 @@ const validateProductRequest = (req, res, next) =>{
                 })
                 return;
             }
-            next();
         })
     }else{//if category id is not provided
         res.status(400).send({
             message: "CategoryId of a product is not available!"
         })
         return;
-    }
+    }   
     
-        
-      
+    if(!req.body.price || req.body.price <= 0){
+        res.status(400).send({
+            message: "Price doesn't seems to be in place!"
+        })
+        return;
+    }
+
+    next();
 }
 
-module.exports = {validateCategoryRequest, validateProductRequest};
+const validateCategoryInRequestParams=(req, res, next) => {
+    const categoryId = req.params.categoryId;
+
+    if(categoryId){ //user have provided some category id
+        //validate category id
+        category.findByPk(categoryId).then(response =>{
+            if(!response){ //category id is not valid
+                res.status(400).send({
+                    message: `CategoryId passed is not valid : ${categoryId}`
+                })
+                return;
+            }
+            else{ //category id is valid
+                next();
+            }     
+        }).catch(err => {
+            res.status(500).send({
+                message: 'Some inernal error occurred'
+            })
+        })
+    }else{//user haven't provided some category id
+        res.status(400).send({
+            message: `CategoryId is not available`
+        })
+        return;
+    }
+
+}
+
+module.exports = {validateCategoryRequest, validateProductRequest, validateCategoryInRequestParams};
