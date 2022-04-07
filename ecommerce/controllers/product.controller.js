@@ -27,7 +27,7 @@ const db = require('../models');
       * storing the product object in db
       */
      //Promise.then(resolved).catch(err)
-     console.log(Product);
+     console.log("*****we are here in product controller for create****",Product);
      Product.create(product).then(response =>{
          console.log(`product: [${response} got inserted in db]`);
          res.status(201).send(response);

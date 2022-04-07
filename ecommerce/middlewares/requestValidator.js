@@ -22,33 +22,39 @@ const validateProductRequest = (req, res, next) =>{
             message: "Name or price of the product can't be empty"
         })
         return;
-    };
-
-    if(req.body.categoryId){ //if category id provided
-        //validate if that is a valid categoryId
-        category.findByPk(req.body.categoryId).then(response =>{
-            if(!response){
-                res.status(400).send({
-                    message: `CategoryId passed is not valid : ${req.body.categoryId}`
-                })
-                return;
-            }
-        })
-    }else{//if category id is not provided
-        res.status(400).send({
-            message: "CategoryId of a product is not available!"
-        })
-        return;
-    }   
-    
-    if(!req.body.price || req.body.price <= 0){
-        res.status(400).send({
-            message: "Price doesn't seems to be in place!"
-        })
-        return;
+    }
+    else{
+        if(req.body.categoryId){ //if category id provided
+            //validate if that is a valid categoryId
+            category.findByPk(req.body.categoryId).then(response =>{
+                if(!response){
+                    console.log("*****we are here in request validator for product for create****",req.body);
+                    res.status(400).send({
+                        message: `CategoryId passed is not valid : ${req.body.categoryId}`
+                    })
+                    return;
+                }
+                else{
+                    if(!req.body.price || req.body.price <= 0){
+                        res.status(400).send({
+                            message: "Price doesn't seems to be in place!"
+                        })
+                        return;
+                    }else{
+                        next();
+                    }
+                }
+            })
+        }else{//if category id is not provided
+            res.status(400).send({
+                message: "CategoryId of a product is not available!"
+            })
+            return;
+        } 
     }
 
-    next();
+      
+    
 }
 
 const validateCategoryInRequestParams=(req, res, next) => {

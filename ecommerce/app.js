@@ -7,6 +7,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 function init(){
+    ROLES.create({
+        id: 1,
+        name:db.ROLES[0]
+    })
+    ROLES.create({
+        id: 2,
+        name:db.ROLES[1]
+    })
     var categoriesData = [
         {name: "Electronics", 
         description: "This category contains electrical appliances"},
