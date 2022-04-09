@@ -1,9 +1,9 @@
 
 const categoryController = require('../controllers/category.controller');
-const {requestValidator} = require('../middlewares');
+const {requestValidator, authJwt} = require('../middlewares');
 module.exports = function(app){
     //Route for POST request to create the category
-    app.post("/ecomm/api/v1/categories", [requestValidator.validateCategoryRequest],categoryController.create)
+    app.post("/ecomm/api/v1/categories", [requestValidator.validateCategoryRequest, authJwt.verifyToken, authJwt.isAdmin],categoryController.create)
 
     //Route for PUT request to update the category
     app.put("/ecomm/api/v1/categories/:id", [requestValidator.validateCategoryRequest],categoryController.update)
@@ -17,3 +17,4 @@ module.exports = function(app){
     //Route for GET request to get the all the categories
     app.get("/ecomm/api/v1/categories", categoryController.findAll)
 }
+

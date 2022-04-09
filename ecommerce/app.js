@@ -7,13 +7,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 function init(){
-    ROLES.create({
+    db.role.create({
         id: 1,
-        name:db.ROLES[0]
+        name:"customer"
     })
-    ROLES.create({
+    db.role.create({
         id: 2,
-        name:db.ROLES[1]
+        name:"admin"
     })
     var categoriesData = [
         {name: "Electronics", 
@@ -51,6 +51,7 @@ db.sequelize.sync({force:true}).then(() =>{
 
 require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
+require('./routes/auth.routes')(app);
 app.listen(serverConfig.PORT, () => {
     console.log("my server is working");
 });
