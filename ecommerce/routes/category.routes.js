@@ -6,10 +6,10 @@ module.exports = function(app){
     app.post("/ecomm/api/v1/categories", [requestValidator.validateCategoryRequest, authJwt.verifyToken, authJwt.isAdmin],categoryController.create)
 
     //Route for PUT request to update the category
-    app.put("/ecomm/api/v1/categories/:id", [requestValidator.validateCategoryRequest],categoryController.update)
+    app.put("/ecomm/api/v1/categories/:id", [requestValidator.validateCategoryRequest, authJwt.verifyToken, authJwt.isAdmin],categoryController.update)
 
     //Route for DELETE request to delete the category
-    app.delete("/ecomm/api/v1/categories/:id", categoryController.delete)
+    app.delete("/ecomm/api/v1/categories/:id",[authJwt.verifyToken, authJwt.isAdmin], categoryController.delete)
 
     //Route for GET request to get the category based on the id
     app.get("/ecomm/api/v1/categories/:id", categoryController.findOne)

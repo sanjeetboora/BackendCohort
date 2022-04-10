@@ -1,6 +1,4 @@
-const db = require("../models")
-
-
+const db = require("../models");
 const checkDuplicateUsernameOrEmail = (req, res, next) =>{
     db.user.findOne({
         where:{
@@ -33,8 +31,6 @@ const checkDuplicateUsernameOrEmail = (req, res, next) =>{
 const checkRolesExists = (req, res, next) =>{
     if(req.body.roles){
         //iterate through roles provided by user
-
-        console.log("inside check roles **********************");
         for(let i=0; i< req.body.roles.length; i++){
             if(!db.ROLES.includes(req.body.roles[i])){
                 res.status(400).send({

@@ -20,8 +20,10 @@ exports.signup = (req, res) =>{
         console.log("user created");
         if(req.body.roles){
             Role.findAll({
-                name:{
-                    [Op.or]: req.body.roles
+                where: {
+                    name:{
+                        [Op.or]: req.body.roles
+                    }
                 }
             }).then(roles =>{
                 user.setRoles(roles).then(()=>{
@@ -30,7 +32,7 @@ exports.signup = (req, res) =>{
             })
         }else{
             //default role => 1 - customer
-            user.setRoles([1]).then(resp =>{
+            user.setRoles(db.ROLES[0]).then(resp =>{
                 res.status(201).send({message: "user registered successfully!"});
             })
         }

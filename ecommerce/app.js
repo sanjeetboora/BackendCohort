@@ -9,11 +9,11 @@ app.use(bodyParser.json());
 function init(){
     db.role.create({
         id: 1,
-        name:"customer"
+        name:db.ROLES[0]
     })
     db.role.create({
         id: 2,
-        name:"admin"
+        name:db.ROLES[1]
     })
     var categoriesData = [
         {name: "Electronics", 

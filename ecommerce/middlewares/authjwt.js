@@ -1,6 +1,6 @@
 const jwt =require("jsonwebtoken");
 const config = require('../config/auth.config');
-const { user } = require("../models");
+const db = require("../models");
 
 
 //verify the token
@@ -26,10 +26,12 @@ verifyToken = (req, res, next) =>{
 };
 
 isAdmin = (req, res, next) =>{
-    user.findByPK(req.userId).then(user => {
+    db.user.findByPk(req.userId).then(user => {
         user.getRoles().then(roles =>{
+            console.log("************here in authjwt*************");
+            console.log(roles);
             for(let i=0; i<roles.length; i++){
-                if(roles[i] === "admin"){
+                if(roles[i].name === "admin"){
                     next();
                     return;
                 }
