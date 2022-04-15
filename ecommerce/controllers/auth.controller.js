@@ -31,9 +31,18 @@ exports.signup = (req, res) =>{
                 })
             })
         }else{
-            //default role => 1 - customer
-            user.setRoles(db.ROLES[0]).then(resp =>{
-                res.status(201).send({message: "user registered successfully!"});
+            //default role => 1 - "customer" = db.ROLES[1]
+            console.log("inside else part for no roles");
+            Role.findAll({
+                where: {
+                    name:"customer"
+                }
+            }).then(role =>{
+                user.setRoles(role).then(resp =>{
+                    res.status(201).send({message: "user registered successfully!"});
+                }).catch(err =>{
+                    res.satus(500).send({message: `internal server error occurred: ${err}`});
+                })
             })
         }
     }).catch(err =>{

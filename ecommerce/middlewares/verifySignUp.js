@@ -28,19 +28,20 @@ const checkDuplicateUsernameOrEmail = (req, res, next) =>{
     })
 }
 
-const checkRolesExists = (req, res, next) =>{
+const checkRolesExists = async (req, res, next) => {
     if(req.body.roles){
         //iterate through roles provided by user
         for(let i=0; i< req.body.roles.length; i++){
-            if(!db.ROLES.includes(req.body.roles[i])){
+            let roleIncluded = await db.ROLES.includes(req.body.roles[i]);
+            if(!roleIncluded){
                 res.status(400).send({
                     message: "Roles desn't exists" + req.body.roles[i]
                 })
                 return;
             }
         }
-        next();
     }
+    next();
 }
 
 const verifySignUp = {checkDuplicateUsernameOrEmail, checkRolesExists};
