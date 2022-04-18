@@ -11,7 +11,7 @@ const checkDuplicateUsernameOrEmail = (req, res, next) =>{
             })
             return;
         }
-        //if user not present already, then validate for email also
+        //if username not present already, then validate for email also
         db.user.findOne({
             where:{
                 email: req.body.email

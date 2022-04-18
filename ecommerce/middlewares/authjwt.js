@@ -19,7 +19,6 @@ verifyToken = (req, res, next) =>{
                 message:'Unauthorized'
             });
         }
-
         req.userId = decoded.id;
         next();
     });
@@ -27,9 +26,12 @@ verifyToken = (req, res, next) =>{
 
 isAdmin = (req, res, next) =>{
     db.user.findByPk(req.userId).then(user => {
+        if(!user){
+            return res.status(401).send({
+                message: "invalid user"
+            });        
+        }
         user.getRoles().then(roles =>{
-            console.log("************here in authjwt*************");
-            console.log(roles);
             for(let i=0; i<roles.length; i++){
                 if(roles[i].name === "admin"){
                     next();

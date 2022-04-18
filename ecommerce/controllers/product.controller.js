@@ -3,7 +3,6 @@
  * all the crud request coming for product would be execulting some method of this file.
  */
 
- const { category } = require('../models');
 const db = require('../models');
  console.log(db);
  const Product = db.product;

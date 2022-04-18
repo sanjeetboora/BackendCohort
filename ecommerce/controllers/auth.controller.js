@@ -17,7 +17,6 @@ exports.signup = (req, res) =>{
         password: bcrypt.hashSync(req.body.password, 10)
     };
     User.create(userObj).then(user => {
-        console.log("user created");
         if(req.body.roles){
             Role.findAll({
                 where: {
@@ -27,7 +26,7 @@ exports.signup = (req, res) =>{
                 }
             }).then(roles =>{
                 user.setRoles(roles).then(()=>{
-                    res.send({message: "user registered successfully!"});
+                    res.status(201).send({message: "user registered successfully!"});
                 })
             })
         }else{
@@ -73,6 +72,10 @@ exports.signin = (req, res) =>{
         var token = jwt.sign({id: user.id}, config.secret, {
             expiresIn: 86400 //24 hours
         })
+
+        //hashing is done for password only
+        //your jwt is encoded which consists of your payload data and other information
+        
 //[{"1", "customer"}, {"2", "admin"}] => ["ROLE_CUSTOMER", "ROLE_ADMIN"] <= authorities
         var authorities = [];
         user.getRoles().then(roles =>{
