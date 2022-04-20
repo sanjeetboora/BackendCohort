@@ -57,7 +57,7 @@ exports.create = (req, res) => {
     }).catch(err =>{
         res.status(500).send({
             message: "Some internal error occurred while updating the category data!"
-        })
+        });
     });
 };
 
@@ -68,10 +68,10 @@ exports.delete = (req, res) =>{
             id:categoryId
         }
     }).then(response => {
-        res.sendStatus(200).send(response);
+        res.status(200).send(response);
 
     }).catch(err =>{
-        res.sendStatus(500).send({
+        res.status(500).send({
             message: "Some internal error occurred while deleting the category!"
         })
     });
