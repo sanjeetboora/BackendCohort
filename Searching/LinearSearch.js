@@ -8,6 +8,7 @@ function linearSearch(arr, key) {
             return i; //returning the position where we found key
         }
     }
+    return NaN;
 }
 function globalLinearSearch(arr, key) {
     let result = [];
