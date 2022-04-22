@@ -22,5 +22,20 @@
             "dialect": "mysql",
             "host": "localhost"
         }
+    },
+    "production": {
+        "database": "PB0YdtxSjy",
+        "username": "PB0YdtxSjy",
+        "password": "9bUAdckcBH",
+        "dialectInformation": {
+            "dialect": "mysql",
+            "host": "remotemysql.com"
+        },
+        "pool": {
+            "max": 3,
+            "min": 0,
+            "acquire": 20000,
+            "idle": 10000
+        }
     }
 }

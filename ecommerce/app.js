@@ -59,8 +59,7 @@ require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/auth.routes')(app);
 require('./routes/cart.routes')(app);
-console.log("Printing the port *******************************************");
-console.log(process.env.PORT);
+console.log("***********************", process.env.NODE_ENV, process.env.port)
 app.listen(process.env.PORT || serverConfig.PORT, () => {
     console.log("my server is working");
 });
