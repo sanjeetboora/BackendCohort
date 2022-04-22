@@ -1,11 +1,11 @@
 const db = require("../models");
-const checkDuplicateUsernameOrEmail = (req, res, next) =>{
+const checkDuplicateUsernameOrEmail = (req, res, next) => {
     db.user.findOne({
-        where:{
+        where: {
             username: req.body.username
         }
     }).then(user => {
-        if(user){
+        if (user) {
             res.status(400).send({
                 message: "Username already exists"
             })
@@ -13,11 +13,11 @@ const checkDuplicateUsernameOrEmail = (req, res, next) =>{
         }
         //if username not present already, then validate for email also
         db.user.findOne({
-            where:{
+            where: {
                 email: req.body.email
             }
         }).then(user => {
-            if(user){
+            if (user) {
                 res.status(400).send({
                     message: "email already exists"
                 })
@@ -29,11 +29,11 @@ const checkDuplicateUsernameOrEmail = (req, res, next) =>{
 }
 
 const checkRolesExists = async (req, res, next) => {
-    if(req.body.roles){
+    if (req.body.roles) {
         //iterate through roles provided by user
-        for(let i=0; i< req.body.roles.length; i++){
+        for (let i = 0; i < req.body.roles.length; i++) {
             let roleIncluded = await db.ROLES.includes(req.body.roles[i]);
-            if(!roleIncluded){
+            if (!roleIncluded) {
                 res.status(400).send({
                     message: "Roles desn't exists" + req.body.roles[i]
                 })
@@ -44,5 +44,5 @@ const checkRolesExists = async (req, res, next) => {
     next();
 }
 
-const verifySignUp = {checkDuplicateUsernameOrEmail, checkRolesExists};
+const verifySignUp = { checkDuplicateUsernameOrEmail, checkRolesExists };
 module.exports = verifySignUp;

@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-    mockRequest : () =>{
+    mockRequest: () => {
         const req = {};
         /**
          * body
@@ -17,7 +17,7 @@ module.exports = {
         return req;
     },
 
-    mockResponse : () =>{
+    mockResponse: () => {
         const res = {};
         /**
          * status
@@ -25,6 +25,7 @@ module.exports = {
          */
         res.status = jest.fn().mockReturnValue(res);
         res.send = jest.fn().mockReturnValue(res);
+        res.sendStatus = jest.fn().mockReturnValue(res);
         return res;
     }
 }

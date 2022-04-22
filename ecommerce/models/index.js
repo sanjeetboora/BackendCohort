@@ -7,7 +7,7 @@
 */
 const Sequelize = require('sequelize');
 const dbConfig = require('../config/db.config.json');
-const env = "development";
+const env = process.env.NODE_ENV || "development";
 const dbSettings = dbConfig[env];
 const sequelize = new Sequelize(
     dbSettings.database,
@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
     dbSettings.password,
     dbSettings.dialectInformation);
 
-const db = {Sequelize, sequelize};
+const db = { Sequelize, sequelize };
 db.category = require('./category.model')(sequelize, Sequelize);
 db.product = require('./product.model')(sequelize, Sequelize);
 db.user = require('./user.model')(sequelize, Sequelize);
@@ -25,7 +25,7 @@ db.cart = require('./cart.model')(sequelize, Sequelize);
 /**
  * Relationship between Role and User
  */
-db.role.belongsToMany(db.user,{
+db.role.belongsToMany(db.user, {
     through: "user_roles",
     foreignKey: "roleId",
     otherKey: "userId"
@@ -48,13 +48,13 @@ db.user.hasMany(db.cart);
  * Relationship between Cart and Products : Many-to-many
  */
 
-db.product.belongsToMany(db.cart,{
+db.product.belongsToMany(db.cart, {
     through: "cart_products",
     foreignKey: "productId",
     otherKey: "cartId"
 });
 
-db.cart.belongsToMany(db.product,{
+db.cart.belongsToMany(db.product, {
     through: "cart_products",
     foreignKey: "cartId",
     otherKey: "productId"
