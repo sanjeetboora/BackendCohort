@@ -9,10 +9,16 @@
 			"name": "create category",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ5NDg3NzI0LCJleHAiOjE2NDk1NzQxMjR9.UTXuVU69kjtsJP5tbDPvSySvOV_ksXFAWKbxKNU9_Vw",
+						"type": "default"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\" : \"\"}",
+					"raw": "{\"name\" : \"Fashion\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -339,7 +345,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"dharmit\",\r\n    \"email\" : \"sharmit@gmail.com\",\r\n    \"password\" : \"nithin-password\",\r\n    \"roles\": [\"admin\"]\r\n}",
+					"raw": "{\r\n    \"username\" : \"vijay2\",\r\n    \"email\" : \"vijay1@gmail.com\",\r\n    \"password\" : \"nithin-password\",\r\n    \"roles\" : [\"customer\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -371,7 +377,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"dharmit\",\r\n    \"password\" : \"nithin-password\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"vijay\",\r\n    \"password\" : \"nithin-password\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -393,6 +399,89 @@
 						"signin"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "add cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUwMDQxODY2LCJleHAiOjE2NTAxMjgyNjZ9.jhEGKnJmNxHMp7SbNGXtb4Bl12ZxUjN0Vo51DlAY4-U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ecomm/api/v1/carts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ecomm",
+						"api",
+						"v1",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update cart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUwMDQxODY2LCJleHAiOjE2NTAxMjgyNjZ9.jhEGKnJmNxHMp7SbNGXtb4Bl12ZxUjN0Vo51DlAY4-U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productIds\" : [3, 1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ecomm/api/v1/carts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ecomm",
+						"api",
+						"v1",
+						"carts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cart",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}
