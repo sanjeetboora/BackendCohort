@@ -1,28 +1,29 @@
-function binarySearch(arr, key) {
+function upperBound(arr, key) {
     let start = 0;
     let end = arr.length - 1;
+    let ans = -1;
 
     while (start <= end) {
         let mid = Math.floor((start + end)/2);
-        if (arr[mid] == key) { //found the key element
-            return mid;
-        }
         //key element is smaller than mid element -> left
-        else if (key < arr[mid]) {
+        if (key < arr[mid]) {
+            ans = mid;
             end = mid - 1;
         }
         //key element is grater than mid element -> right 
         else {
             start = mid + 1;
         }
+    }  
+    if(ans == -1){
+        ans = NaN;
     }
 
-    return NaN;
+    return ans;
 }
 
 
 let arr = [2, 10, 14, 17, 22, 25, 29, 34, 39, 41];
-let key = 11;
-let position = binarySearch(arr, key);
-
-console.log(position);
+let key = 37;
+let position = upperBound(arr, key);
+console.log("element: ", arr[position], " position: ",position);
