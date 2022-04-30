@@ -12,11 +12,15 @@ class Node{
 class SinglyLinkedList {
     constructor(){
         this.head = null;
+        this.tail = null;
         this.length =0;
     }
 
     insertAtStart(data){
         let newNode = new Node(data); //create a new node with data
+        if(head == null || this.length == 0){
+            this.tail = newNode;
+        }
         newNode.next = this.head; //attach new node at the start or current head
         this.head = newNode; //Update the head pointer to new node
         this.length++;
@@ -52,14 +56,24 @@ class SinglyLinkedList {
             this.insertAtStart(data);
             return;
         }
-        let curr = this.head;
-        while(curr.next != null){
-            curr = curr.next;
+        let newNode = new Node(data);
+        this.tail.next = newNode;
+        this.tail = newNode;
+        this.length++;
+    }
+
+    updateDataAtPosition(x, data){
+        if(this.head == null || this.length == 0 || x > this.length){
+            console.log("invalid position");
+            return;
         }
 
-        let newNode = new Node(data);
-        curr.next = newNode;
-        this.length++;
+        let curr = this.head;
+        let pos =1;
+        while(pos<x){
+            curr = curr.next;
+        }
+        curr.data = data;
     }
 
     printLinkedList(){
