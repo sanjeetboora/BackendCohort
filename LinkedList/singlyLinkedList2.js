@@ -18,7 +18,7 @@ class SinglyLinkedList {
 
     insertAtStart(data){
         let newNode = new Node(data); //create a new node with data
-        if(head == null || this.length == 0){
+        if(this.head == null || this.length == 0){
             this.tail = newNode;
         }
         newNode.next = this.head; //attach new node at the start or current head
@@ -31,7 +31,7 @@ class SinglyLinkedList {
             this.insertAtStart(data);
             return;
         }
-        if(x > this.length){
+        if(x >= this.length){
             this.insertAtLast(data);
             return;
         }
@@ -63,7 +63,7 @@ class SinglyLinkedList {
     }
 
     updateDataAtPosition(x, data){
-        if(this.head == null || this.length == 0 || x > this.length){
+        if(this.head == null || this.length == 0 || x >= this.length){
             console.log("invalid position");
             return;
         }
@@ -74,6 +74,72 @@ class SinglyLinkedList {
             curr = curr.next;
         }
         curr.data = data;
+    }
+
+    deleteAtStart(){
+        if(this.head == null || this.length == 0){
+            console.log("no nodes are present in linkedlist");
+            return;
+        }
+        let curr = this.head;
+        this.head = this.head.next;
+        curr = null;
+        if(this.length == 1){
+            this.tail = null;
+        }
+        this.length--;
+    }
+
+    deleteAtPosition(x){
+        if(x==0){
+            this.deleteAtStart();
+            return;
+        }
+        else if(x == this.length-1){
+            //this.deleteAtLast();
+            return;
+        }
+        else if(this.head==null || this.length ==0 || x > this.length-1){
+            console.log("invalid position");
+            return;
+        }
+
+        let count =0;
+        let curr = this.head;
+        let prev= null;
+
+        while(count < x){
+            prev = curr;
+            curr= curr.next;
+            count++;
+        }
+
+        prev.next = curr.next;
+        console.log(prev);
+        curr = null;
+        this.length--;
+    }
+
+    deleteAtLast(){
+        if(this.head==null || this.length ==0){
+            console.log("there is no node present in linked list");
+            return;
+        }
+        if(this.length == 1){
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return;
+        }
+        
+        let curr = this.head;
+        while(curr.next != this.tail){
+            curr = curr.next;
+        }
+
+        curr.next = null;
+        this.tail = curr;
+        this.length--;
     }
 
     printLinkedList(){
@@ -127,4 +193,48 @@ console.log("------------------------");
 console.log("------------------------");
 myLinkedList.insertAtLast(200);
 myLinkedList.printLinkedList();
+console.log("------------------------");
+console.log("------------------------");
+myLinkedList.insertAtLast(300);
+myLinkedList.printLinkedList();
+
+
+
+
+console.log("------------------------");
+
+// console.log("------------------------");
+// myLinkedList.deleteAtStart();
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// console.log("------------------------");
+// myLinkedList.deleteAtStart();
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// console.log("------------------------");
+// myLinkedList.deleteAtStart();
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+
+// console.log("------------------------");
+// myLinkedList.deleteAtPosition(1);
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// console.log("------------------------");
+// myLinkedList.deleteAtPosition(0);
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// console.log("------------------------");
+console.log("------------------------");
+myLinkedList.deleteAtLast();
+myLinkedList.printLinkedList();
+console.log("------------------------");
+console.log("------------------------");
+myLinkedList.deleteAtLast();
+myLinkedList.printLinkedList();
+console.log("------------------------");
+console.log("------------------------");
+myLinkedList.deleteAtLast();
+myLinkedList.printLinkedList();
+console.log("------------------------");
 console.log("------------------------");
