@@ -2,7 +2,7 @@ class Stack{
     constructor(){
         this.data = [];
         this.top = -1;
-        this.maxSize = 5;
+        this.maxSize = 100;
     }
 
     size(){
@@ -147,5 +147,83 @@ function checkParentheses(str){
     return st.isEmpty();
 }
 
-console.log(checkParentheses("[{()}{}]"));
-console.log(checkParentheses("[{(}}{}]"));
+// console.log(checkParentheses("[{()}{}]"));
+// console.log(checkParentheses("[{(}}{}]"));
+
+
+
+
+
+
+function nextGreater(arr, n){
+    let st = new Stack();
+
+    for(let idx = 0; idx < n; idx++){
+        let currEle = arr[idx];
+        
+        if(!st.isEmpty()){ //stack is not empty
+            let topEle = st.peek();
+            while(topEle < currEle){
+                console.log(topEle, "-->", currEle);
+                st.pop();
+               
+                if(st.isEmpty()){
+                    break;
+                }
+                topEle = st.peek();
+            }
+        }
+        st.push(currEle);
+    }
+
+    while(!st.isEmpty()){
+        let topEle = st.peek();
+        console.log(topEle, "-->", -1);
+        st.pop();
+    }
+}
+
+// let arr = [2, 7, 3, 5, 4, 6, 8];
+let arr = [9, 8, 7, 6, 5, 5, 4];
+let n = 7;
+nextGreater(arr, n);
+
+
+
+function nextGreaterReturnArray(arr, n){
+    let st = new Stack();
+    let resultArray = new Array(n);
+
+    for(let idx = 0; idx < n; idx++){
+        let currEle = arr[idx];
+        
+        if(!st.isEmpty()){ //stack is not empty
+            let topEleIdx = st.peek();
+            while(arr[topEleIdx] < currEle){
+                console.log(arr[topEleIdx], "-->", currEle);
+                resultArray[topEleIdx] = currEle;
+                st.pop();
+               
+                if(st.isEmpty()){
+                    break;
+                }
+                topEle = st.peek();
+            }
+        }
+        st.push(idx);
+    }
+
+    while(!st.isEmpty()){
+        let topEleIdx = st.peek();
+        console.log(arr[topEleIdx], "-->", -1);
+        resultArray[topEleIdx] = -1;
+        st.pop();
+    }
+    return resultArray
+}
+
+// let arr = [2, 7, 3, 5, 4, 6, 8];
+let arr1 = [9, 8, 7, 6, 5, 5, 4];
+let n1 = 7;
+let result = nextGreaterReturnArray(arr1, n1);
+console.log(result);
