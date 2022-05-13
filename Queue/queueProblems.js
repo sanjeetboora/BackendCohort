@@ -64,22 +64,35 @@ class Queue{ //circular queue
 
 }
 
-let myQueue = new Queue();
-myQueue.enqueue(20);
-myQueue.enqueue(30);
-myQueue.enqueue(40);
-myQueue.enqueue(50);
-myQueue.enqueue(60);
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-//myQueue.enqueue(70);
 
+function firstUniqueChar(str){
+    
+    let freqArr = new Array(26);
+    freqArr.fill(0);
+    let uniqueElementsQueue = new Queue();
+
+    for(let i=0; i<str.length; i++){
+        let ch = str[i];
+        let indexOfCh = ch.charCodeAt(0) - 'a'.charCodeAt(0);
+        freqArr[indexOfCh]++; //increase the frequency of current char ch
+
+        if(freqArr[indexOfCh]==1){ //ch is unique
+            uniqueElementsQueue.enqueue(ch);
+        }else{//ch is not unique
+            while(!uniqueElementsQueue.isEmpty() && 
+            freqArr[uniqueElementsQueue.getFront().charCodeAt(0) - 'a'.charCodeAt(0)] >1){
+                uniqueElementsQueue.dequeue();
+            }
+        }
+
+        if(uniqueElementsQueue.isEmpty()){
+            console.log("till ", ch," first unique is ", -1);
+        }
+        else{
+            console.log("till ", ch," first unique is ", uniqueElementsQueue.getFront());
+        }
+    }
+}
+
+// firstUniqueChar("abcbcdae");
+firstUniqueChar("abcbcdade");
