@@ -95,4 +95,5 @@ function firstUniqueChar(str){
 }
 
 // firstUniqueChar("abcbcdae");
-firstUniqueChar("abcbcdade");
+//firstUniqueChar("abcbcdade");
+
