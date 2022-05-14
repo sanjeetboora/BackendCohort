@@ -186,7 +186,7 @@ function nextGreater(arr, n){
 // let arr = [2, 7, 3, 5, 4, 6, 8];
 let arr = [9, 8, 7, 6, 5, 5, 4];
 let n = 7;
-nextGreater(arr, n);
+//nextGreater(arr, n);
 
 
 
@@ -203,11 +203,11 @@ function nextGreaterReturnArray(arr, n){
                 console.log(arr[topEleIdx], "-->", currEle);
                 resultArray[topEleIdx] = currEle;
                 st.pop();
-               
+                console.log("size",st.size());
                 if(st.isEmpty()){
                     break;
                 }
-                topEle = st.peek();
+                topEleIdx = st.peek();
             }
         }
         st.push(idx);
@@ -223,7 +223,73 @@ function nextGreaterReturnArray(arr, n){
 }
 
 // let arr = [2, 7, 3, 5, 4, 6, 8];
-let arr1 = [9, 8, 7, 6, 5, 5, 4];
+// let arr1 = [9, 8, 7, 6, 5, 5, 4];
+let arr1 = [2, 7, 3, 5, 4, 6, 8];
 let n1 = 7;
-let result = nextGreaterReturnArray(arr1, n1);
-console.log(result);
+//let result = nextGreaterReturnArray(arr1, n1);
+// console.log(result);
+
+
+
+function removeDuplicates(str){
+    let st = new Stack();
+
+    for(let idx =0; idx<str.length; idx++){
+        let ch = str[idx];
+        if(!st.isEmpty()){
+            let topEle = st.peek();
+            if(topEle == ch){
+                st.pop();
+            }else if(topEle != ch && ch == str[idx-1]){
+                //don't do anything
+                continue;
+            }
+            else{
+                st.push(ch);
+            }
+        }
+        else{
+            st.push(ch);
+        }
+    }
+
+    let res = '';
+    while(!st.isEmpty()){
+        res += st.peek();
+        st.pop();
+    }
+    return res;
+}
+
+console.log(removeDuplicates("aabbacca"));
+
+
+
+function stockSpan(stocks, n){
+    let resultArr = [];
+    let st = new Stack();
+    for(let idx =0; idx<n; idx++){
+        if(st.isEmpty()){
+            resultArr.push(idx+1);
+            st.push(idx);
+        }
+        else{
+            while(!st.isEmpty() && stocks[st.peek()] < stocks[idx]){
+                console.log(st.peek());
+                st.pop();
+            }
+            if(st.isEmpty()){
+                resultArr.push(idx+1);
+                st.push(idx);
+            }else{
+                resultArr.push(idx - st.peek());
+                st.push(idx);
+            }
+        }
+
+    }
+    return resultArr;
+}
+
+let stocks = [100, 80, 60, 70, 60, 75, 85];
+console.log(stockSpan(stocks, 7));
