@@ -1,5 +1,5 @@
 function placeCows(cows, stalls, noOfStalls, mid){
-    let indexOfStallOfLastCowPlaced = 0;
+    let indexOfStallOfLastCowPlaced = 0; 
     cows--; //as first cow is placed
 
     for(let stallIdx = 1; stallIdx < noOfStalls; stallIdx++){
@@ -18,7 +18,7 @@ function minDistanceBetweenCows(noOfStalls, stalls, cows){
 
     let largestMinDistance = -1;
 
-    while(minDistance <= maxDistance){
+    while(minDistance <= maxDistance){ //binary search
         let mid = Math.floor((minDistance + maxDistance)/2);
         let ableToPlaceCows = placeCows(cows, stalls, noOfStalls, mid);
         if(ableToPlaceCows == true){

@@ -232,27 +232,25 @@ class SinglyLinkedList {
 
         secondLL = this.reverseLL(secondLL);
         let firstLL = this.head;
-        let mergedLL =firstLL;
-        firstLL = firstLL.next;
-        mergedLL.next = secondLL;
-        secondLL = secondLL.next;
-        let temp;
+
+        let mergedLL = new Node();
+        let temp = mergedLL;
         while(firstLL!=null && secondLL != null){
-            temp = firstLL;
+            temp.next = firstLL;
             firstLL = firstLL.next;
-            console.log("temp", temp);
+            temp =temp.next;
+
             temp.next = secondLL;
-            console.log("temp", temp);
-            
             secondLL = secondLL.next;
-            console.log(firstLL, secondLL);
-            temp = temp.next.next;
-            console.log("temp----", temp);
-            console.log("mergedLL----", mergedLL);
-            mergedLL.next.next = temp;
+            temp =temp.next;
         }
-        console.log(mergedLL);
-        this.head = mergedLL; 
+        if(firstLL != null){
+            temp.next = firstLL;
+        }
+        else if(secondLL != null){
+            temp.next = secondLL;
+        }
+        this.head = mergedLL.next; 
     }
 
 }
@@ -360,17 +358,22 @@ myLinkedList.head = new Node(10);
 myLinkedList.head.next = new Node(20);
 myLinkedList.head.next.next = new Node(30);
 myLinkedList.head.next.next.next = new Node(40);
-myLinkedList.head.next.next.next.next = myLinkedList.head.next;
+myLinkedList.head.next.next.next.next  = new Node(50);
+//myLinkedList.head.next.next.next.next = myLinkedList.head.next;
 //myLinkedList.head.next.next.next.next =null;
 
-const cycleDetected = myLinkedList.detectcycle();
-if(cycleDetected){
-    console.log("cycle detected");
-}
-else{
-    console.log("cycle doesn't exists");
-}
+// const cycleDetected = myLinkedList.detectcycle();
+// if(cycleDetected){
+//     console.log("cycle detected");
+// }
+// else{
+//     console.log("cycle doesn't exists");
+// }
 
-//myLinkedList.printLinkedList();
-myLinkedList.removeCycle();
+// //myLinkedList.printLinkedList();
+// myLinkedList.removeCycle();
+// myLinkedList.printLinkedList();
+myLinkedList.printLinkedList();
+console.log("------------------------");
+myLinkedList.foldingLL();
 myLinkedList.printLinkedList();
