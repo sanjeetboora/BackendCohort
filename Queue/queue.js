@@ -64,22 +64,24 @@ class Queue{ //circular queue
 
 }
 
-let myQueue = new Queue();
-myQueue.enqueue(20);
-myQueue.enqueue(30);
-myQueue.enqueue(40);
-myQueue.enqueue(50);
-myQueue.enqueue(60);
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
-myQueue.dequeue();
-console.log(myQueue.getFront());
+// let myQueue = new Queue();
+// myQueue.enqueue(20);
+// myQueue.enqueue(30);
+// myQueue.enqueue(40);
+// myQueue.enqueue(50);
+// myQueue.enqueue(60);
+// console.log(myQueue.getFront());
+// myQueue.dequeue();
+// console.log(myQueue.getFront());
+// myQueue.dequeue();
+// console.log(myQueue.getFront());
+// myQueue.dequeue();
+// console.log(myQueue.getFront());
+// myQueue.dequeue();
+// console.log(myQueue.getFront());
+// myQueue.dequeue();
+// console.log(myQueue.getFront());
 //myQueue.enqueue(70);
 
+
+exports.Queue = Queue;

@@ -56,13 +56,15 @@ function deleteInBST(root, data){
     return root;
 }
 
-
+let output = [];
 function inorderTraversal(root){
-    if(root == null) return; //base case
+    if(root == null) return output; //base case
     // left ,root, right
     inorderTraversal(root.left);
-    console.log(root.data);
+    // console.log(root.data);
+    output.push(root.data);
     inorderTraversal(root.right);
+    return output;
 }
 
 let root = new Node(10);
@@ -78,14 +80,15 @@ insertInBST(root, 15);
 // inorderTraversal(root);
 // console.log("--------------------");
 insertInBST(root, 1);
-inorderTraversal(root);
+let myoutput = inorderTraversal(root);
+console.log(myoutput);
 console.log("--------------------");
-deleteInBST(root, 5);
-inorderTraversal(root);
-console.log("--------------------");
-deleteInBST(root, 10);
-inorderTraversal(root);
-console.log("--------------------");
-deleteInBST(root, 15);
-inorderTraversal(root);
-console.log("--------------------");
+// deleteInBST(root, 5);
+// inorderTraversal(root);
+// console.log("--------------------");
+// deleteInBST(root, 10);
+// inorderTraversal(root);
+// console.log("--------------------");
+// deleteInBST(root, 15);
+// inorderTraversal(root);
+// console.log("--------------------");
