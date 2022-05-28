@@ -92,12 +92,94 @@ function levelOrderOptimized(root){
     }
 }
 
+
+function rightViewOfBinaryTree(root){
+    if(!root){
+        return;
+    }
+    let result=[];
+    let queue = new Queue();
+    queue.enqueue(root);
+    queue.enqueue(null);
+    while(!queue.isEmpty()){
+        let n = queue.getFront();
+        queue.dequeue();
+        if(!queue.isEmpty() && queue.getFront() == null){
+            result.push(n.data);
+        }
+        if(n == null){
+            if(!queue.isEmpty()){
+                queue.enqueue(null);
+            }
+            continue;
+        }
+        if(n.left != null){
+            queue.enqueue(n.left);
+        }
+        if(n.right != null){
+            queue.enqueue(n.right);
+        }
+    }
+    return result;
+}
+
+function leftViewOfBinaryTree(root){
+    if(!root){
+        return;
+    }
+    let result=[];
+    let queue = new Queue();
+    queue.enqueue(root);
+    queue.enqueue(null);
+    result.push(root.data);
+    while(!queue.isEmpty()){
+        let n = queue.getFront();
+        queue.dequeue();
+       
+        if(n == null){
+            if(!queue.isEmpty()){
+                queue.enqueue(null);
+                result.push(queue.getFront().data);
+            }
+            continue;
+        }
+        if(n.left != null){
+            queue.enqueue(n.left);
+        }
+        if(n.right != null){
+            queue.enqueue(n.right);
+        }
+    }
+    return result;
+}
+
+
+function isValidBST(root){
+    return isBST(root, Number.MIN_VALUE, Number.MAX_VALUE);
+}
+
+//minimum = maximum of left subtree, maximum => minimum of right subtree
+function isBST(node, minimum, maximum){
+    if(node == null){ //base case
+        return true;
+    }
+
+    if(minimum > node.data || node.data > maximum){
+        return false;
+    }
+
+    let leftSubtreeIsBST = isBST(node.left, minimum, node.data);
+    let rightSubtreeIsBST = isBST(node.right, node.data, maximum);
+
+    return leftSubtreeIsBST && rightSubtreeIsBST;
+}
+
 let root = new Node(10);
-root.left = new Node(20);
-root.right = new Node(30);
-root.left.left = new Node(40);
-root.left.right = new Node(50);
-root.right.right = new Node(90);
+root.left = new Node(5);
+root.right = new Node(15);
+root.left.left = new Node(4);
+root.left.right = new Node(6);
+root.right.right = new Node(19);
 // preorderTraversal(root);
 // console.log("----------------");
 // postorderTraversal(root);
@@ -109,14 +191,26 @@ root.right.right = new Node(90);
 //        /  \
 //      20    30
 //     /  \     \
-//    40  50     60
+//    40  50     90
 //console.log(root);
 //printLevelK(root, 0, 2);
 //let height = heightOfTree(root);
 //console.log(height);
 //printAllLevels(root);
-levelOrderOptimized(root);
+//levelOrderOptimized(root);
 
+// let rightView = rightViewOfBinaryTree(root);
+// console.log(rightView);
+
+// let leftView = leftViewOfBinaryTree(root);
+// console.log(leftView);
+
+//         10
+//        /  \
+//      5     15
+//     /  \     \
+//    4  6      19
+console.log(isValidBST(root));
 
 function buildTree(input, n){
     let arr = [];
