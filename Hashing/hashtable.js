@@ -4,7 +4,7 @@ class HashTable{
         this.currentSize = 0;
     }
 
-    hash(key){
+    hash(key){ //"abcd" => 97+98+99+100
         let sum =0;
         for(let i=0; i<key.length; i++){
             sum += key.charCodeAt(i);
@@ -34,7 +34,7 @@ class HashTable{
         const index = this.hash(key);
         for(let i=0; i<this.hashTable[index].length; i++){
             if(this.hashTable[index][i][0] == key){
-                this.hashTable[index].splice(i,1);
+                this.hashTable[index].splice(i,1); //splice(index, no. of items to be deleted)
                 this.currentSize--;
             }
         }
@@ -78,3 +78,8 @@ ht.print();
 // 2
 // 3 ["fifty", 78]
 // 4
+
+// this.hashTable[index][i][1]
+// this.hashTable[1][1][1]
+
+// 1 [["one", 22], ["thirty", 50]]
