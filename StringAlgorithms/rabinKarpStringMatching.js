@@ -6,13 +6,19 @@ function rabinKarp(str, pattern){
     let power = [];
     power[0] =1;
     for(let i=1; i<str.length; i++){ //power[P^0, P^1, P^2, P^3,..... P^str.length-1]
-        power[i] = (power[i-1]*P)%mod;
+        power[i] = (power[i-1]*P) % mod;
     }
 
-    let hashPattern = 0;
+    let hashPattern = 0; 
     for(let i=0; i<pattern.length; i++){
+        //ABC
+        //i =2
+        //curr char = 'C'
+        //curr_char_hash = hash contibution of 'c'
         let curr_char_hash =  (pattern.charCodeAt(i)*power[i])%mod;//pattern[i] * P^i //i = 3 => P^3 => P*P*P
+        //hashPattern = hash of AB
         hashPattern = (hashPattern + curr_char_hash)%mod;
+        //hashPattern = hash of AB + hash contibution of 'c'
     }
 
     let hashArr = [0]
