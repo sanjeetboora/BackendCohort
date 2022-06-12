@@ -14,24 +14,22 @@ class DoublyLinkedList{
     }
 
 
+    
     insertAtStart(data){
         let newNode = new Node(data);
         if(this.head == null || this.length == 0){
             this.tail = newNode;
-            console.log("updating at tail ", this.length);
         }
        else if(this.head != null){
             this.head.prev = newNode;
             newNode.next = this.head;
         }
         this.head = newNode;
-        console.log("updating at head ", this.length);
         this.length++;
     }
 
     insertAtEnd(data){
         if(this.head == null || this.length == 0){
-            console.log("adding at tail ", this.length);
             this.insertAtStart(data);
             return;
         }
@@ -40,6 +38,13 @@ class DoublyLinkedList{
         newNode.prev = this.tail;
         this.tail =  newNode;
         this.length++;
+    }
+
+    getTail(){
+        return this.tail;
+    }
+    getHead(){
+        return this.head;
     }
 
     insertAtPosition(x, data){
@@ -134,6 +139,26 @@ class DoublyLinkedList{
         this.length--;
     }
 
+    deleteGivenNode(node){
+        //node is head
+        if(node.prev == null){
+            this.deleteAtStart();
+        }
+
+        //node is tail
+        else if(node.next == null){
+            this.deleteAtEnd();
+        }
+
+        //node is somewhere in between
+        else{
+            let prevNode = node.prev;
+            prevNode.next = node.next;
+            node.next.prev = prevNode;
+        }
+
+    }
+
     findValueAtPosition(x){
         if(x >= this.length || x<0){
             console.log("invalid index");
@@ -164,32 +189,65 @@ class DoublyLinkedList{
     }
 }
 
-let dll = new DoublyLinkedList();
-dll.insertAtStart(10);
-dll.printDoublyLinkedList();
-console.log("----------------------");
-dll.insertAtEnd(20);
-dll.printDoublyLinkedList();
-console.log("----------------------");
-dll.insertAtEnd(25);
-dll.printDoublyLinkedList();
-console.log("----------------------");
-// dll.insertAtStart(5);
-// dll.printDoublyLinkedList();
-// console.log("----------------------");
-// dll.insertAtPosition(2,15);
-// dll.printDoublyLinkedList();
-// console.log("----------------------");
-// dll.deleteAtStart();
-// dll.printDoublyLinkedList();
-// console.log("----------------------");
-// dll.deleteAtEnd();
-// dll.printDoublyLinkedList();
-// console.log("----------------------");
-// dll.deleteAtPosition(1);
-// dll.printDoublyLinkedList();
-console.log(dll.findValueAtPosition(1));
-console.log("----------------------");
-dll.updateValueAtPosition(1, 90);
-dll.printDoublyLinkedList();
+
+class LRUCache{
+
+    constructor(sz = 10){
+        this.dll = new DoublyLinkedList();
+        this.mp = new Map();
+        this.maxSize = sz;
+    }
+
+    insert(x){
+        //when ele already exists
+        if(this.mp.has(x)){
+            //get address of x from the map
+            let addX = this.mp.get(x);
+            //remove x from dll
+            this.dll.deleteGivenNode(addX);
+        }
+        else{ //when ele doesn't exist
+            if(this.mp.size >= this.maxSize){
+              //when ele doesn't exist and memory is full
+                //remove least recently used (LRU) element from dll and map
+                let lru = this.dll.getHead();
+                this.mp.delete(lru.data);
+                this.dll.deleteAtStart();
+            }
+        } 
+        //add x at tail dll
+        this.dll.insertAtEnd(x); 
+        //update address of x in map
+        this.mp.set(x, this.dll.getTail());
+    }
+
+    getLRU(){
+        return this.dll.head?.data;
+    }
+
+    display(){
+        // console.log(this.dll);
+        this.dll.printDoublyLinkedList();
+        console.log("--------------------");
+    }
+}
+
+
+let lruObj = new LRUCache(5);
+
+lruObj.insert(10);
+lruObj.display();
+lruObj.insert(20);
+lruObj.display();
+lruObj.insert(30);
+lruObj.display();
+lruObj.insert(40);
+lruObj.display();
+lruObj.insert(30);
+lruObj.display();
+lruObj.insert(60);
+lruObj.display();
+lruObj.insert(70);
+lruObj.display();
+
 
