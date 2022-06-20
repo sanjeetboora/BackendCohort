@@ -142,8 +142,7 @@ class SinglyLinkedList {
         this.length--;
     }
 
-    printLinkedList(){
-        let currNode = this.head;
+    printLinkedList(currNode = this.head){
         
         while(currNode != null){
             console.log(currNode.data);
@@ -253,6 +252,89 @@ class SinglyLinkedList {
         this.head = mergedLL.next; 
     }
 
+
+    rearrange(){
+        let temp = this.head;
+
+        let zeroHead = new Node();
+        let oneHead = new Node();
+        let twoHead = new Node();
+
+        let temp0 =zeroHead;
+        let temp1 = oneHead;
+        let temp2 = twoHead;
+
+        while(temp != null){
+            if(temp.data == 0){
+                temp0.next = temp;
+                temp0 = temp0.next;
+            }else if(temp.data == 1){
+                temp1.next = temp;
+                temp1 = temp1.next;
+            }
+            else if(temp.data == 2){
+                temp2.next = temp;
+                temp2 = temp2.next;
+            }
+            temp = temp.next;
+        }
+
+        this.head = zeroHead.next;
+        temp0.next = oneHead.next;
+        temp1.next = twoHead.next;
+        temp2.next = null;
+    }
+
+
+    pairWiseSwap(){
+
+        if(!this.head || !this.head.next){
+            return thid.head;
+        }
+
+        let A = this.head;
+        let B = this.head.next;
+        let prev = null;
+
+        while( A && B){
+            let temp = B.next;
+            B.next = A;
+            A.next = temp;
+
+            if(prev != null){
+                prev.next = B;
+            }else{
+                this.head = B;
+            }
+
+            prev = A;
+            A = temp;
+            B = A.next;
+        }
+    }
+
+    reverseK(myHead,k) {
+        if(myHead == null){
+            return null;
+        }
+
+        let curr = myHead;
+        let prev = null;
+        let nextNode = null;
+
+        let reversedNodes = 0;
+        while(reversedNodes < k && curr != null){
+            nextNode = curr.next;
+            curr.next = prev; //reversed the pointer
+            prev = curr;
+            curr = nextNode;
+            reversedNodes++;
+        }
+
+        myHead.next = this.reverseK(curr, k);
+
+        return prev;
+    }
 }
 
 let myLinkedList = new SinglyLinkedList();
@@ -354,11 +436,11 @@ let myLinkedList = new SinglyLinkedList();
 // myLinkedList.foldingLL();
 // myLinkedList.printLinkedList();
 
-myLinkedList.head = new Node(10);
-myLinkedList.head.next = new Node(20);
-myLinkedList.head.next.next = new Node(30);
-myLinkedList.head.next.next.next = new Node(40);
-myLinkedList.head.next.next.next.next  = new Node(50);
+// myLinkedList.head = new Node(10);
+// myLinkedList.head.next = new Node(20);
+// myLinkedList.head.next.next = new Node(30);
+// myLinkedList.head.next.next.next = new Node(40);
+// myLinkedList.head.next.next.next.next  = new Node(50);
 //myLinkedList.head.next.next.next.next = myLinkedList.head.next;
 //myLinkedList.head.next.next.next.next =null;
 
@@ -373,7 +455,52 @@ myLinkedList.head.next.next.next.next  = new Node(50);
 // //myLinkedList.printLinkedList();
 // myLinkedList.removeCycle();
 // myLinkedList.printLinkedList();
-myLinkedList.printLinkedList();
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// myLinkedList.foldingLL();
+// myLinkedList.printLinkedList();
+
+
+
+
+
+// myLinkedList.head = new Node(1);
+// myLinkedList.head.next = new Node(2);
+// myLinkedList.head.next.next = new Node(0);
+// myLinkedList.head.next.next.next = new Node(0);
+// myLinkedList.head.next.next.next.next  = new Node(1);
+// myLinkedList.head.next.next.next.next.next  = new Node(2);
+// myLinkedList.head.next.next.next.next.next.next  = new Node(1);
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// myLinkedList.rearrange();
+// myLinkedList.printLinkedList();
+
+
+
+
+// myLinkedList.head = new Node(1);
+// myLinkedList.head.next = new Node(2);
+// myLinkedList.head.next.next = new Node(3);
+// myLinkedList.head.next.next.next = new Node(4);
+// myLinkedList.head.next.next.next.next  = new Node(5);
+// myLinkedList.head.next.next.next.next.next  = new Node(6);
+// myLinkedList.head.next.next.next.next.next.next  = new Node(7);
+// myLinkedList.printLinkedList();
+// console.log("------------------------");
+// myLinkedList.pairWiseSwap();
+// myLinkedList.printLinkedList();
+
+
+
+myLinkedList.head = new Node(1);
+myLinkedList.head.next = new Node(2);
+myLinkedList.head.next.next = new Node(3);
+myLinkedList.head.next.next.next = new Node(4);
+myLinkedList.head.next.next.next.next  = new Node(5);
+myLinkedList.head.next.next.next.next.next  = new Node(6);
+myLinkedList.head.next.next.next.next.next.next  = new Node(7);
+myLinkedList.printLinkedList(myLinkedList.head);
 console.log("------------------------");
-myLinkedList.foldingLL();
-myLinkedList.printLinkedList();
+let newLLHead = myLinkedList.reverseK(myLinkedList.head, 3);
+myLinkedList.printLinkedList(newLLHead);
